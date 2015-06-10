@@ -11,7 +11,7 @@ OUTPUT_DIR=$(pwd)/_output/
 # Start clean
 rm -rf $OUTPUT_DIR
 mkdir -p $OUTPUT_DIR
-rm -rf snapshota snapshotb
+rm -rf snapshota snapshotb fail-meta
 
 echo "1. Run first Unity build ... this should complete successfully"
 $UNITY_CMD_PATH -quit -batchmode -projectPath $UNITY_PROJECT_PATH -buildTarget iPhone -executeMethod Build.ClientBuilder.BuildClient_BatchMode -outputDir=$OUTPUT_DIR/build_step_1/
@@ -25,11 +25,16 @@ mv $UNITY_PROJECT_PATH/Assets/MyFolder/TestScript_toDelete.cs* $(pwd)/tmp_delete
 
 echo "2.1 save snapshot a"
 cp -r $UNITY_PROJECT_PATH snapshota
+mkdir fail-meta
+cp snapshota/Library/metadata/eb/ebf102192028942cdb156ff88fe33d6a      fail-meta/
+cp snapshota/Library/metadata/eb/ebf102192028942cdb156ff88fe33d6a.info fail-meta/
+cp snapshota/Library/assetDatabase3                                    fail-meta/
+cp snapshota/Library/guidmapper                                        fail-meta/
+cp snapshota/Library/metadata/00/00000000000000004000000000000000      fail-meta/
 
 echo "3. Run Unity build again ... this should fail"
 $UNITY_CMD_PATH -quit -batchmode -projectPath $UNITY_PROJECT_PATH -buildTarget iPhone -executeMethod Build.ClientBuilder.BuildClient_BatchMode -outputDir=$OUTPUT_DIR/build_step_3/
 echo "      Result: " $?
-echo "      Open _output/unity_editor_step_3.log and search for 'stderr'"
 cp  ~/Library/Logs/Unity/Editor.log $OUTPUT_DIR/unity_editor_step_3.log
 
 echo "3.1 save snapshot b"
@@ -40,10 +45,24 @@ $UNITY_CMD_PATH -quit -batchmode -projectPath $UNITY_PROJECT_PATH -buildTarget i
 echo "      Result: " $?
 cp  ~/Library/Logs/Unity/Editor.log $OUTPUT_DIR/unity_editor_step_4.log
 
+echo "4.1 DONT insert meta files which seemed to cause failiure:"
+#cp fail-meta/ebf102192028942cdb156ff88fe33d6a        $UNITY_PROJECT_PATH/Library/metadata/eb/
+#cp fail-meta/ebf102192028942cdb156ff88fe33d6a.info   $UNITY_PROJECT_PATH/Library/metadata/eb/
+#cp fail-meta/assetDatabase3                          $UNITY_PROJECT_PATH/Library/
+#cp fail-meta/guidmapper                              $UNITY_PROJECT_PATH/Library/
+#cp fail-meta/00000000000000004000000000000000        $UNITY_PROJECT_PATH/Library/metadata/00/
+
+echo "4.2 save snapshot c"
+cp -r $UNITY_PROJECT_PATH snapshotc
+
+echo "5. Run Unity build again ..."
+$UNITY_CMD_PATH -quit -batchmode -projectPath $UNITY_PROJECT_PATH -buildTarget iPhone -executeMethod Build.ClientBuilder.BuildClient_BatchMode -outputDir=$OUTPUT_DIR/build_step_5/
+echo "      Result: " $?
+cp  ~/Library/Logs/Unity/Editor.log $OUTPUT_DIR/unity_editor_step_5.log
 
 echo "Cleaning up: Put deleted script back"
 mv $(pwd)/tmp_deleted_file/TestScript_toDelete.cs* $UNITY_PROJECT_PATH/Assets/MyFolder/
 
 rm udsb.zip
-zip udsb.zip -r .
+zip udsb.zip -r . > /dev/null
 #cp udsb.zip /Volumes/Public/stuff
