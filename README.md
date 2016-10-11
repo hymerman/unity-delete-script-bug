@@ -19,3 +19,5 @@ All 4 runs should succeed, but the third run (the first after deleting the scrip
 This behaviour has been present in Unity for a long time (see bug 703290, https://issuetracker.unity3d.com/issues/build-ios-building-in-batchmode-fails-for-first-time-after-removing-file-from-project) and was apparently fixed in Unity 5.3.5, but as far as I can see the behaviour has just improved slightly - it still happens occasionally.
 
 Interestingly, if the script is changed to build for the same platform on all 4 runs, it succeeds. I think the bug is that refreshing the asset database, and compiling scripts, happens the wrong way round when switching platforms.
+
+Example output is given in example_output.txt and example_unity_editor_step_\*.log
