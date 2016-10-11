@@ -1,0 +1,66 @@
+
+C:\PersonalProjects\unity-delete-script-bug>pushd C:\PersonalProjects\unity-delete-script-bug\ 
+
+C:\PersonalProjects\unity-delete-script-bug>setlocal
+
+C:\PersonalProjects\unity-delete-script-bug>rem Path to Unity command 
+
+C:\PersonalProjects\unity-delete-script-bug>set UNITY_CMD_PATH=C:\Program Files\Unity5.4.1p4\Editor\Unity.exe 
+
+C:\PersonalProjects\unity-delete-script-bug>set UNITY_PROJECT_PATH=C:\PersonalProjects\unity-delete-script-bug\test-project\ 
+
+C:\PersonalProjects\unity-delete-script-bug>set UNITY_EDITOR_LOG=C:\Users\Ben\AppData\Local\Unity\Editor\Editor.log 
+
+C:\PersonalProjects\unity-delete-script-bug>set OUTPUT_DIR=C:\PersonalProjects\unity-delete-script-bug\_output 
+
+C:\PersonalProjects\unity-delete-script-bug>set TEMP_DIR=C:\PersonalProjects\unity-delete-script-bug\_temp 
+
+C:\PersonalProjects\unity-delete-script-bug>rem Start clean 
+
+C:\PersonalProjects\unity-delete-script-bug>rd /s /q C:\PersonalProjects\unity-delete-script-bug\_output 
+
+C:\PersonalProjects\unity-delete-script-bug>mkdir C:\PersonalProjects\unity-delete-script-bug\_output 
+
+C:\PersonalProjects\unity-delete-script-bug>rd /s /q C:\PersonalProjects\unity-delete-script-bug\_temp 
+
+C:\PersonalProjects\unity-delete-script-bug>mkdir C:\PersonalProjects\unity-delete-script-bug\_temp 
+
+C:\PersonalProjects\unity-delete-script-bug>echo "1. Run Unity build with script present... this should complete successfully" 
+"1. Run Unity build with script present... this should complete successfully"
+
+C:\PersonalProjects\unity-delete-script-bug>"C:\Program Files\Unity5.4.1p4\Editor\Unity.exe" -quit -batchmode -projectPath C:\PersonalProjects\unity-delete-script-bug\test-project\ -buildTarget win32 -executeMethod Build.ClientBuilder.BuildClient_BatchMode -outputDir=C:\PersonalProjects\unity-delete-script-bug\_output\build_step_1\build.x86 -logFile C:\PersonalProjects\unity-delete-script-bug\_output\unity_editor_step_1.log 
+
+C:\PersonalProjects\unity-delete-script-bug>echo "2. Run Unity build with script still present... this should complete successfully" 
+"2. Run Unity build with script still present... this should complete successfully"
+
+C:\PersonalProjects\unity-delete-script-bug>"C:\Program Files\Unity5.4.1p4\Editor\Unity.exe" -quit -batchmode -projectPath C:\PersonalProjects\unity-delete-script-bug\test-project\ -buildTarget win32 -executeMethod Build.ClientBuilder.BuildClient_BatchMode -outputDir=C:\PersonalProjects\unity-delete-script-bug\_output\build_step_2\build.x86 -logFile C:\PersonalProjects\unity-delete-script-bug\_output\unity_editor_step_2.log 
+
+C:\PersonalProjects\unity-delete-script-bug>echo "2.5 Delete script" 
+"2.5 Delete script"
+
+C:\PersonalProjects\unity-delete-script-bug>move /-y C:\PersonalProjects\unity-delete-script-bug\test-project\\Assets\MyFolder\TestScript_toDelete.cs C:\PersonalProjects\unity-delete-script-bug\_temp\TestScript_toDelete.cs 
+        1 file(s) moved.
+
+C:\PersonalProjects\unity-delete-script-bug>move /-y C:\PersonalProjects\unity-delete-script-bug\test-project\\Assets\MyFolder\TestScript_toDelete.cs.meta C:\PersonalProjects\unity-delete-script-bug\_temp\TestScript_toDelete.cs.meta 
+        1 file(s) moved.
+
+C:\PersonalProjects\unity-delete-script-bug>echo "3. Run Unity build after deleting script... this should complete successfully but doesn't - check the log file for the error" 
+"3. Run Unity build after deleting script... this should complete successfully but doesn't - check the log file for the error"
+
+C:\PersonalProjects\unity-delete-script-bug>"C:\Program Files\Unity5.4.1p4\Editor\Unity.exe" -quit -batchmode -projectPath C:\PersonalProjects\unity-delete-script-bug\test-project\ -buildTarget win32 -executeMethod Build.ClientBuilder.BuildClient_BatchMode -outputDir=C:\PersonalProjects\unity-delete-script-bug\_output\build_step_3\build.exe -logFile C:\PersonalProjects\unity-delete-script-bug\_output\unity_editor_step_3.log 
+
+C:\PersonalProjects\unity-delete-script-bug>echo "3. Run Unity build after deleting script... this should be no different to step 3, but succeeds, showing that step 3 failed wrongly" 
+"3. Run Unity build after deleting script... this should be no different to step 3, but succeeds, showing that step 3 failed wrongly"
+
+C:\PersonalProjects\unity-delete-script-bug>"C:\Program Files\Unity5.4.1p4\Editor\Unity.exe" -quit -batchmode -projectPath C:\PersonalProjects\unity-delete-script-bug\test-project\ -buildTarget win32 -executeMethod Build.ClientBuilder.BuildClient_BatchMode -outputDir=C:\PersonalProjects\unity-delete-script-bug\_output\build_step_4\build.exe -logFile C:\PersonalProjects\unity-delete-script-bug\_output\unity_editor_step_4.log 
+
+C:\PersonalProjects\unity-delete-script-bug>echo "4. Clean up; restore deleted script" 
+"4. Clean up; restore deleted script"
+
+C:\PersonalProjects\unity-delete-script-bug>move /-y C:\PersonalProjects\unity-delete-script-bug\_temp\TestScript_toDelete.cs C:\PersonalProjects\unity-delete-script-bug\test-project\\Assets\MyFolder\TestScript_toDelete.cs 
+        1 file(s) moved.
+
+C:\PersonalProjects\unity-delete-script-bug>move /-y C:\PersonalProjects\unity-delete-script-bug\_temp\TestScript_toDelete.cs.meta C:\PersonalProjects\unity-delete-script-bug\test-project\\Assets\MyFolder\TestScript_toDelete.cs.meta 
+        1 file(s) moved.
+
+C:\PersonalProjects\unity-delete-script-bug>popd

@@ -33,7 +33,7 @@ namespace Build
 
 			var outputPath = GetClientOutputPath(buildArgs);
 
-			System.IO.Directory.CreateDirectory(buildArgs.OutputDir);
+			//System.IO.Directory.CreateDirectory(buildArgs.OutputDir);
 
 			try
 			{

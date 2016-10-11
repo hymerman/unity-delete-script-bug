@@ -106,20 +106,20 @@ namespace Build
 				case "ios":
 				case "iphone":
 					return BuildTarget.iOS;
-				case "web":
-				case "webplayer":
-					return BuildTarget.WebPlayer;
-				case "webstreamed":
-				case "webplayerstreamed":
-					return BuildTarget.WebPlayerStreamed;
 				case "webgl":
 					return BuildTarget.WebGL;
-				case "win":
-				case "standalonewindows":
+				case "win32":
+				case "standalonewindows32":
 					return BuildTarget.StandaloneWindows;
 				case "win64":
 				case "standalonewindows64":
 					return BuildTarget.StandaloneWindows64;
+				case "linux":
+				case "standalonelinux":
+					return BuildTarget.StandaloneLinux;
+				case "linux64":
+				case "standalonelinux64":
+					return BuildTarget.StandaloneLinux64;
 				default:
 					throw new Exception("Unable to find build target: " + target);
 			}
@@ -137,12 +137,10 @@ namespace Build
 
 				case BuildTarget.StandaloneWindows:
 				case BuildTarget.StandaloneWindows64:
+				case BuildTarget.StandaloneLinux:
+				case BuildTarget.StandaloneLinux64:
 				case BuildTarget.StandaloneOSXUniversal:
 					return BuildTargetGroup.Standalone;
-
-				case BuildTarget.WebPlayer:
-				case BuildTarget.WebPlayerStreamed:
-					return BuildTargetGroup.WebPlayer;
 
 				case BuildTarget.WebGL:
 					return BuildTargetGroup.WebGL;
