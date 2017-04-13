@@ -38,7 +38,7 @@ namespace Build
 			try
 			{
 				Console.WriteLine("#### BuildClient: Switching target to " + buildArgs.Target);
-				EditorUserBuildSettings.SwitchActiveBuildTarget(buildArgs.Target);
+				EditorUserBuildSettings.SwitchActiveBuildTarget(buildArgs.TargetGroup, buildArgs.Target);
 
 				Console.WriteLine("#### BuildClient: Build player output to " + outputPath);
 				string res = BuildPipeline.BuildPlayer(scenes, outputPath, buildArgs.Target, BuildOptions.None);

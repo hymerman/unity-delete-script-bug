@@ -6,7 +6,9 @@ public class MyScriptA : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	    SceneManager.GetAllScenes();
+		for(int i = 0; i < SceneManager.sceneCount; ++i) {
+			SceneManager.GetSceneAt(i);
+		}
 	}
 	
 	// Update is called once per frame

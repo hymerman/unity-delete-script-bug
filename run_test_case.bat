@@ -3,7 +3,7 @@ setlocal
 
 
 rem Path to Unity command
-set UNITY_CMD_PATH=C:\Program Files\Unity5.4.1p4\Editor\Unity.exe
+set UNITY_CMD_PATH=C:\Program Files\Unity5.6.0f3\Editor\Unity.exe
 set UNITY_PROJECT_PATH=%~dp0test-project\
 set UNITY_EDITOR_LOG=%LOCALAPPDATA%\Unity\Editor\Editor.log
 set OUTPUT_DIR=%~dp0_output
